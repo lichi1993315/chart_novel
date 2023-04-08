@@ -1,5 +1,5 @@
 var symbolSize = 20;
-var data = [
+var pos_data = [
   [0, 0],
   [1, 0],
   [2, 0],
@@ -11,7 +11,7 @@ var data = [
   [8, 0],
   [9, 0],
 ];
-var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('single_chart'));
 myChart.setOption({
   tooltip: {
     triggerOn: 'none',
@@ -24,14 +24,14 @@ myChart.setOption({
       );
     }
   },
-  xAxis: { min: 0, max: 10, type: 'value', axisLine: { onZero: false } },
-  yAxis: { min: -10, max: 10, type: 'value', axisLine: { onZero: false } },
+  xAxis: { min: 0, max: 9, type: 'value', axisLine: { onZero: false }, splitNumber:10},
+  yAxis: { min: -5, max: 5, type: 'value', axisLine: { onZero: false }, splitNumber:10},
   series: [
-    { id: 'a', type: 'line', smooth: true, symbolSize: symbolSize, data: data }
-  ]
+    { id: 'a', type: 'line', smooth: true, symbolSize: symbolSize, data: pos_data }
+  ],
 });
 myChart.setOption({
-  graphic: echarts.util.map(data, function(item, dataIndex) {
+  graphic: echarts.util.map(pos_data, function(item, dataIndex) {
     return {
       type: 'circle',
       position: myChart.convertToPixel('grid', item),
@@ -47,7 +47,7 @@ myChart.setOption({
 });
 window.addEventListener('resize', function() {
   myChart.setOption({
-    graphic: echarts.util.map(data, function(item, dataIndex) {
+    graphic: echarts.util.map(pos_data, function(item, dataIndex) {
       return { position: myChart.convertToPixel('grid', item) };
     })
   });
@@ -63,31 +63,14 @@ function hideTooltip(dataIndex) {
   myChart.dispatchAction({ type: 'hideTip' });
 }
 function onPointDragging(dataIndex, dx, dy) {
-  data[dataIndex] = myChart.convertFromPixel('grid', this.position);
+  pos_data[dataIndex] = myChart.convertFromPixel('grid', this.position);
 
   myChart.setOption({
     series: [
       {
         id: 'a',
-        data: data
+        data: pos_data
       }
     ]
-  });
-
-  $.ajax({
-    url: '/on_dragging',
-    type: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify({ 'result': data}),
-    success: function (response) {
-        if (response.status === "success") {
-            console.log("结果已成功发送到Flask");
-        } else {
-            console.log("发送结果失败");
-        }
-    },
-    error: function () {
-        console.log("Ajax请求失败");
-    }
   });
 }
