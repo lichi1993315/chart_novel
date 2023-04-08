@@ -16,12 +16,78 @@ tabs.forEach((tab, index) => {
 });
 
 // 获取新增角色按钮
-const addRoleButton = document.querySelector(".content button");
+const addRoleButton = document.getElementById('new_role')
+const addAttrButton = document.getElementById('new_attr')
+
+role_infos = {
+
+}
+
+addAttrButton.addEventListener("click", () => {
+  // 获取表格的 tbody 元素
+  const attrs = document.getElementById("attrs")
+  const tbody = attrs.querySelector("tbody");
+
+  // 创建新的表格行
+  const newRow = document.createElement("tr");
+
+  // 为表格行添加单元格
+  const nameCell = document.createElement("td");
+  const attrCell = document.createElement("td");
+  const detailCell = document.createElement("td");
+
+  // 为角色单元格添加下拉列表
+  const nameInput = document.createElement("input");
+  nameInput.setAttribute("type", "text");
+  nameInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
+  nameCell.appendChild(nameInput);
+
+  const attrInput = document.createElement("input");
+  attrInput.setAttribute("type", "text");
+  attrInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
+  attrCell.appendChild(attrInput);
+
+  // 为人物背景单元格添加输入框
+  const detailInput = document.createElement("input");
+  detailInput.setAttribute("type", "text");
+  detailInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
+  detailCell.appendChild(detailInput);
+
+  // 将单元格添加到表格行
+  newRow.appendChild(nameCell);
+  newRow.appendChild(attrCell);
+  newRow.appendChild(detailCell);
+
+   const btnCell = document.createElement("td");
+  btnCell.innerHTML = `
+    <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded">修改</button>
+    <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded">删除</button>
+`;
+  newRow.appendChild(btnCell)
+
+  // 将表格行添加到表格的 tbody 元素
+  tbody.appendChild(newRow);
+});
+
+function modifyRow(btn) {
+    let row = btn.parentNode.parentNode;
+    let dataCell = row.cells[0];
+    let newData = prompt("请输入新数据：", dataCell.innerHTML);
+    if (newData != null) {
+        dataCell.innerHTML = newData;
+    }
+}
+
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
 
 // 为新增角色按钮添加点击事件监听器
 addRoleButton.addEventListener("click", () => {
   // 获取表格的 tbody 元素
-  const tbody = document.querySelector("table tbody");
+  const roles = document.getElementById("roles")
+  const tbody = roles.querySelector("tbody");
 
   // 创建新的表格行
   const newRow = document.createElement("tr");
@@ -37,6 +103,11 @@ addRoleButton.addEventListener("click", () => {
   nameInput.setAttribute("type", "text");
   nameInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
   nameCell.appendChild(nameInput);
+
+  nameInput.addEventListener('input', function() {
+    // 在这里添加输入事件的处理程序
+    console.log('用户输入了：', nameInput.value);
+  });
 
   const genderInput = document.createElement("input");
   genderInput.setAttribute("type", "text");
@@ -91,3 +162,26 @@ generateBtn.addEventListener('click', function() {
     }
   });
 });
+
+
+
+  //
+  // const attrs = document.getElementById("attrs")
+  // const tbody = attrs.querySelector("tbody");
+  //
+  // let rows = attrs.rows;
+  // for (let i = 1; i < rows.length; i++) {
+  //         let rowData = {};
+  //         // rowData['角色'] = rows[i].cells[0].querySelector('input').value;
+  //         // rowData['属性'] = rows[i].cells[1].querySelector('input').value;
+  //         // rowData['详情'] = rows[i].cells[2].querySelector('input').value;
+  //
+  //         role_name= rows[i].cells[0].querySelector('input').value;
+  //         role_attr = rows[i].cells[1].querySelector('input').value;
+  //         role_info = rows[i].cells[2].querySelector('input').value;
+  //
+  //         if (!role_infos.has(role_name)){
+  //           role_infos[role_name] = {}
+  //         }
+  //
+  //     }

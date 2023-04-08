@@ -36,8 +36,8 @@
                     <label class="block mb-2">小说风格</label>
                     <input class="bg-gray-800 text-gray-300 rounded w-full p-2 " type="text">
                 </div>
-                <button class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增角色</button>
-                <table class="w-full">
+                <button id="new_role" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增角色</button>
+                <table class="w-full" id="roles">
                     <thead>
                         <tr>
                             <th class="border-gray-600 border">姓名</th>
@@ -51,17 +51,30 @@
                     </tbody>
                 </table>
             </div>
-        <style>
-            #single_chart {
-                position: absolute;
-                top: 50%;
-                right: 0;
-                transform: translateY(-50%);
-            }
-        </style>
 
             <div id="content2" class="content-item hidden">
+                <style>
+                    #single_chart {
+                        position: absolute;
+                        top: 40%;
+                        right: 0;
+                        transform: translateY(-50%);
+                    }
+                </style>
                 <div id="single_chart" style="width: 800px; height: 600px;"></div>
+                <button id="new_attr" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增属性</button>
+                <table class="w-1/2" id="attrs">
+                    <thead>
+                        <tr>
+                            <th class="border-gray-600 border">角色</th>
+                            <th class="border-gray-600 border">属性</th>
+                            <th class="border-gray-600 border">详情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 在这里添加角色信息 -->
+                    </tbody>
+                </table>
                 <!-- 单人属性的内容 -->
             </div>
             <div id="content3" class="content-item hidden">
