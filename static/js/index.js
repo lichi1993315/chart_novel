@@ -58,7 +58,7 @@ addAttrButton.addEventListener("click", () => {
   newRow.appendChild(attrCell);
   newRow.appendChild(detailCell);
 
-   const btnCell = document.createElement("td");
+  const btnCell = document.createElement("td");
   btnCell.innerHTML = `
     <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded">修改</button>
     <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded">删除</button>
@@ -72,7 +72,7 @@ addAttrButton.addEventListener("click", () => {
 function modifyRow(btn) {
     let row = btn.parentNode.parentNode;
     let dataCell = row.cells[0];
-    let newData = prompt("请输入新数据：", dataCell.innerHTML);
+    let newData = prompt("请输入新数据：", dataCell.querySelector('input').value);
     if (newData != null) {
         dataCell.innerHTML = newData;
     }
@@ -84,7 +84,37 @@ function deleteRow(btn) {
 }
 
 // 为新增角色按钮添加点击事件监听器
-addRoleButton.addEventListener("click", () => {
+
+const userWindow = document.getElementById('userWindow');
+const cancelBtn = document.getElementById('cancelBtn');
+const inputName = document.getElementById('inputName');
+const inputGender = document.getElementById('inputGender');
+const inputRole = document.getElementById('inputRole');
+const inputBackground = document.getElementById('inputBackground');
+const saveBtn = document.getElementById('saveBtn');
+
+
+addRoleButton.addEventListener('click', () => {
+  userWindow.classList.remove('hidden');
+});
+
+cancelBtn.addEventListener('click', () => {
+// 清空输入框并关闭模态框
+inputName.value = '';
+inputGender.value = '';
+inputRole.value = '';
+inputBackground.value = '';
+userWindow.classList.add('hidden');
+});
+
+
+saveBtn.addEventListener('click', () => {
+  const name = inputName.value;
+  const gender = inputGender.value;
+  const role = inputRole.value;
+const background = inputBackground.value;
+
+if (name && gender && role && background) {
   // 获取表格的 tbody 元素
   const roles = document.getElementById("roles")
   const tbody = roles.querySelector("tbody");
@@ -99,37 +129,17 @@ addRoleButton.addEventListener("click", () => {
   const backgroundCell = document.createElement("td");
 
   // 为姓名和性别单元格添加输入框
-  const nameInput = document.createElement("input");
-  nameInput.setAttribute("type", "text");
-  nameInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  nameCell.appendChild(nameInput);
+  nameCell.textContent = name;
+  nameCell.classList.add("bg-gray-800", "border-gray-600", "border", "text-gray-300", "p-2", "text-center");
 
-  nameInput.addEventListener('input', function() {
-    // 在这里添加输入事件的处理程序
-    console.log('用户输入了：', nameInput.value);
-  });
+  genderCell.textContent = gender;
+  genderCell.classList.add("bg-gray-800", "border-gray-600", "border", "text-gray-300", "p-2", "text-center");
 
-  const genderInput = document.createElement("input");
-  genderInput.setAttribute("type", "text");
-  genderInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  genderCell.appendChild(genderInput);
+  roleCell.textContent = role;
+  roleCell.classList.add("bg-gray-800", "border-gray-600", "border", "text-gray-300", "p-2", "text-center");
 
-  // 为角色单元格添加下拉列表
-  const roleSelect = document.createElement("select");
-  roleSelect.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  const mainRoleOption = document.createElement("option");
-  mainRoleOption.textContent = "主角";
-  roleSelect.appendChild(mainRoleOption);
-  const sideRoleOption = document.createElement("option");
-  sideRoleOption.textContent = "配角";
-  roleSelect.appendChild(sideRoleOption);
-  roleCell.appendChild(roleSelect);
-
-  // 为人物背景单元格添加输入框
-  const backgroundInput = document.createElement("input");
-  backgroundInput.setAttribute("type", "text");
-  backgroundInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  backgroundCell.appendChild(backgroundInput);
+  backgroundCell.textContent = background;
+  backgroundCell.classList.add("bg-gray-800", "border-gray-600", "border", "text-gray-300", "p-2", "text-center");
 
   // 将单元格添加到表格行
   newRow.appendChild(nameCell);
@@ -139,6 +149,17 @@ addRoleButton.addEventListener("click", () => {
 
   // 将表格行添加到表格的 tbody 元素
   tbody.appendChild(newRow);
+
+  // 清空输入框并关闭模态框
+  inputName.value = '';
+  inputGender.value = '';
+  inputRole.value = '';
+  inputBackground.value = '';
+  userWindow.classList.add('hidden');
+}
+else{
+alert('请填写完整信息');
+}
 });
 
 const generateBtn = document.getElementById('generate');
@@ -162,7 +183,6 @@ generateBtn.addEventListener('click', function() {
     }
   });
 });
-
 
 
   //
