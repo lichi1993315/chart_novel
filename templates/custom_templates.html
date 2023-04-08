@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradio with ECharts</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart" style="width: 600px; height: 400px;"></div>
+    <script>
+        var chartContainer = document.getElementById('chart');
+        var myChart = echarts.init(chartContainer);
+        var option = {
+          title: {
+              text: 'Line Chart Example'
+          },
+          tooltip: {
+              trigger: 'axis'
+          },
+          xAxis: {
+              type: 'category',
+              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [{
+              name: 'Example Series',
+              type: 'line',
+              data: [10, 12, 15, 20, 16, 22, 18]
+          }]
+        };
+        myChart.setOption(option);
+    </script>
+    {{gradio_interface}}
+</body>
+</html>
