@@ -1,10 +1,15 @@
 var symbolSize = 20;
 var data = [
-  [15, 0],
-  [-50, 10],
-  [-56.5, 20],
-  [-46.5, 30],
-  [-22.1, 40]
+  [0, 0],
+  [1, 0],
+  [2, 0],
+  [3, 0],
+  [4, 0],
+  [5, 0],
+  [6, 0],
+  [7, 0],
+  [8, 0],
+  [9, 0],
 ];
 var myChart = echarts.init(document.getElementById('main'));
 myChart.setOption({
@@ -19,8 +24,8 @@ myChart.setOption({
       );
     }
   },
-  xAxis: { min: -100, max: 80, type: 'value', axisLine: { onZero: false } },
-  yAxis: { min: -30, max: 60, type: 'value', axisLine: { onZero: false } },
+  xAxis: { min: 0, max: 10, type: 'value', axisLine: { onZero: false } },
+  yAxis: { min: -10, max: 10, type: 'value', axisLine: { onZero: false } },
   series: [
     { id: 'a', type: 'line', smooth: true, symbolSize: symbolSize, data: data }
   ]
@@ -59,6 +64,7 @@ function hideTooltip(dataIndex) {
 }
 function onPointDragging(dataIndex, dx, dy) {
   data[dataIndex] = myChart.convertFromPixel('grid', this.position);
+
   myChart.setOption({
     series: [
       {
@@ -66,5 +72,22 @@ function onPointDragging(dataIndex, dx, dy) {
         data: data
       }
     ]
+  });
+
+  $.ajax({
+    url: '/on_dragging',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ 'result': data}),
+    success: function (response) {
+        if (response.status === "success") {
+            console.log("结果已成功发送到Flask");
+        } else {
+            console.log("发送结果失败");
+        }
+    },
+    error: function () {
+        console.log("Ajax请求失败");
+    }
   });
 }
