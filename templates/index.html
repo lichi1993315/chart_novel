@@ -9,6 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/chart.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/echart_flare.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/echart_les.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/summary.js') }}" defer></script>
 </head>
 <body class="bg-gray-900 text-gray-300">
@@ -99,7 +101,12 @@
 
             </div>
             <div id="content3" class="content-item hidden">
-            <!-- 多人属性的内容 -->
+
+
+            <div class="flex space-x-4">
+                <div id="echartsDemo0" class="block w-1/2" style="width: 700px; height: 400px;"></div>
+                <div id="echartsDemo1" class="block w-1/2" style="width: 700px; height: 400px;"></div>
+            </div>
         </div>
         <div id="content4" class="content-item hidden">
             <!-- 其他的内容 -->
@@ -175,6 +182,7 @@
                 <option value="都市传说">
                 <option value="未来科幻">
             </datalist>
+
           </label>
           <label class="block mb-4 text-gray-600">
             详情：
