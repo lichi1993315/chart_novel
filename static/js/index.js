@@ -140,8 +140,8 @@ saveAttrChange.addEventListener('click', () => {
 
     const btnCell = document.createElement("td");
     btnCell.innerHTML = `
-      <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded">修改</button>
-      <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded">删除</button>
+      <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded w-1/8">修改</button>
+      <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded w-1/8">删除</button>
   `;
     newRow.appendChild(btnCell)
 
