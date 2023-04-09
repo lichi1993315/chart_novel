@@ -1,4 +1,4 @@
-let symbolSize = 20;
+let symbolSize = 15;
 let pos_data = [
   [0, 0],
   [1, 0],
