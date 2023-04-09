@@ -59,6 +59,23 @@ addAttrButton.addEventListener('click', () => {
       [9, 0],
     ];
 
+  var mySelect = document.getElementById("attrUserName");
+  // 删除已有的选项
+  while (mySelect.firstChild) {
+    mySelect.removeChild(mySelect.firstChild);
+  }
+
+
+ let user_names = Object.keys(USER_INFO)
+
+    // 添加选项
+  for (var i = 0; i < user_names.length; i++) {
+      const option = document.createElement("option");
+      option.setAttribute("value", user_names[i]);
+      option.innerHTML = user_names[i];
+      mySelect.appendChild(option);
+  }
+
   changeEcharts(pos_data)
   attrWindow.classList.remove('hidden');
 });
@@ -66,7 +83,6 @@ addAttrButton.addEventListener('click', () => {
 cancelUserChange.addEventListener('click', () => {
 // 清空输入框并关闭模态框
 userName.value = '';
-userGender.value = '';
 userRole.value = '';
 userBackground.value = '';
 userWindow.classList.add('hidden');
@@ -74,7 +90,6 @@ userWindow.classList.add('hidden');
 
 cancelAttrChange.addEventListener('click', () => {
 // 清空输入框并关闭模态框
-attrUserName.value = '';
 attrName.value = '';
 attrInfo.value = '';
 attrWindow.classList.add('hidden');
@@ -90,7 +105,6 @@ saveAttrChange.addEventListener('click', () => {
       USER_CONTEXT['attr_row'].cells[1].textContent = attrName.value;
       USER_CONTEXT['attr_row'].cells[2].textContent = attrInfo.value;
 
-      attrUserName.value = '';
       attrName.value = '';
       attrInfo.value = '';
       attrWindow.classList.add('hidden');
@@ -146,7 +160,6 @@ saveAttrChange.addEventListener('click', () => {
     USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data.slice();
 
     // 清空输入框并关闭模态框
-    attrUserName.value = '';
     attrName.value = '';
     attrInfo.value = '';
     attrWindow.classList.add('hidden');
@@ -221,7 +234,6 @@ if (name && gender && role && background) {
 
   // 清空输入框并关闭模态框
   userName.value = '';
-  userGender.value = '';
   userRole.value = '';
   userBackground.value = '';
   userWindow.classList.add('hidden');
