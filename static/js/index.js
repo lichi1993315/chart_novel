@@ -1,3 +1,10 @@
+USER_INFO = {
+
+}
+
+USER_CONTEXT = {
+}
+
 // 获取所有标签按钮和内容项
 const tabs = document.querySelectorAll("nav button");
 const contentItems = document.querySelectorAll(".content-item");
@@ -19,63 +26,131 @@ tabs.forEach((tab, index) => {
 const addRoleButton = document.getElementById('new_role')
 const addAttrButton = document.getElementById('new_attr')
 
-role_infos = {
+const userWindow = document.getElementById('userWindow');
+const userName = document.getElementById('userName');
+const userGender = document.getElementById('userGender');
+const userRole = document.getElementById('userRole');
+const userBackground = document.getElementById('userBackground');
+const saveUserChange = document.getElementById('saveUserChange');
+const cancelUserChange = document.getElementById('cancelUserChange');
 
-}
+const attrWindow = document.getElementById('attrWindow');
+const attrUserName = document.getElementById('attrUserName');
+const attrName = document.getElementById('attrName');
+const attrInfo = document.getElementById('attrInfo');
+const saveAttrChange = document.getElementById('saveAttrChange');
+const cancelAttrChange = document.getElementById('cancelAttrChange');
 
-addAttrButton.addEventListener("click", () => {
-  // 获取表格的 tbody 元素
-  const attrs = document.getElementById("attrs")
-  const tbody = attrs.querySelector("tbody");
+addRoleButton.addEventListener('click', () => {
+  userWindow.classList.remove('hidden');
+});
 
-  // 创建新的表格行
-  const newRow = document.createElement("tr");
+addAttrButton.addEventListener('click', () => {
+  attrWindow.classList.remove('hidden');
+});
 
-  // 为表格行添加单元格
-  const nameCell = document.createElement("td");
-  const attrCell = document.createElement("td");
-  const detailCell = document.createElement("td");
+cancelUserChange.addEventListener('click', () => {
+// 清空输入框并关闭模态框
+userName.value = '';
+userGender.value = '';
+userRole.value = '';
+userBackground.value = '';
+userWindow.classList.add('hidden');
+});
 
-  // 为角色单元格添加下拉列表
-  const nameInput = document.createElement("input");
-  nameInput.setAttribute("type", "text");
-  nameInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  nameCell.appendChild(nameInput);
+cancelAttrChange.addEventListener('click', () => {
+// 清空输入框并关闭模态框
+attrUserName.value = '';
+attrName.value = '';
+attrInfo.value = '';
+attrWindow.classList.add('hidden');
+});
 
-  const attrInput = document.createElement("input");
-  attrInput.setAttribute("type", "text");
-  attrInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  attrCell.appendChild(attrInput);
+saveAttrChange.addEventListener('click', () => {
 
-  // 为人物背景单元格添加输入框
-  const detailInput = document.createElement("input");
-  detailInput.setAttribute("type", "text");
-  detailInput.classList.add("bg-gray-800", "text-gray-300", "rounded", "w-full", "p-2");
-  detailCell.appendChild(detailInput);
+  if (("attr" in USER_INFO[attrUserName.value]) && (attrName.value in USER_INFO[attrUserName.value]["attr"])){
+      USER_INFO[attrUserName.value]["attr"][attrName.value]["info"] = attrInfo.value;
+      USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data
 
-  // 将单元格添加到表格行
-  newRow.appendChild(nameCell);
-  newRow.appendChild(attrCell);
-  newRow.appendChild(detailCell);
+      USER_CONTEXT['attr_row'].cells[0].textContent = attrUserName.value;
+      USER_CONTEXT['attr_row'].cells[1].textContent = attrName.value;
+      USER_CONTEXT['attr_row'].cells[2].textContent = attrInfo.value;
 
-  const btnCell = document.createElement("td");
-  btnCell.innerHTML = `
-    <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded">修改</button>
-    <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded">删除</button>
-`;
-  newRow.appendChild(btnCell)
+      attrUserName.value = '';
+      attrName.value = '';
+      attrInfo.value = '';
+      attrWindow.classList.add('hidden');
+      return
+  }
 
-  // 将表格行添加到表格的 tbody 元素
-  tbody.appendChild(newRow);
+  if (attrUserName.value && attrName.value && attrInfo.value) {
+    // 获取表格的 tbody 元素
+    const attrs = document.getElementById("attrs")
+    const tbody = attrs.querySelector("tbody");
+
+    // 创建新的表格行
+    const newRow = document.createElement("tr");
+
+    // 为表格行添加单元格
+    const nameCell = document.createElement("td");
+    const attrCell = document.createElement("td");
+    const detailCell = document.createElement("td");
+
+    nameCell.textContent = attrUserName.value
+    nameCell.classList.add("bg-gray-800", "border-gray-600", "w-1/4", "border", "text-gray-300", "text-center");
+
+    attrCell.textContent = attrName.value
+    attrCell.classList.add("bg-gray-800", "border-gray-600", "w-1/4","border", "text-gray-300", "text-center");
+
+    detailCell.textContent = attrInfo.value
+    detailCell.classList.add("bg-gray-800", "border-gray-600", "w-1/4","border", "text-gray-300", "text-center");
+
+    // 将单元格添加到表格行
+    newRow.appendChild(nameCell);
+    newRow.appendChild(attrCell);
+    newRow.appendChild(detailCell);
+
+    const btnCell = document.createElement("td");
+    btnCell.innerHTML = `
+      <button onclick="modifyRow(this)" class="bg-green-600 text-gray-200 py-1 px-3 rounded">修改</button>
+      <button onclick="deleteRow(this)" class="bg-red-600 text-gray-200 py-1 px-3 rounded">删除</button>
+  `;
+    newRow.appendChild(btnCell)
+
+    // 将表格行添加到表格的 tbody 元素
+    tbody.appendChild(newRow);
+
+    if (!("attr" in USER_INFO[attrUserName.value])){
+      USER_INFO[attrUserName.value]["attr"] = {}
+    }
+
+    if (!(attrName in USER_INFO[attrUserName.value]["attr"])) {
+      USER_INFO[attrUserName.value]["attr"][attrName.value] = {}
+    }
+
+    USER_INFO[attrUserName.value]["attr"][attrName.value]["info"] = attrInfo.value;
+    USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data;
+
+    // 清空输入框并关闭模态框
+    attrUserName.value = '';
+    attrName.value = '';
+    attrInfo.value = '';
+    attrWindow.classList.add('hidden');
+  }
+  else{
+    alert('请填写完整信息');
+  }
 });
 
 function modifyRow(btn) {
     let row = btn.parentNode.parentNode;
-    let dataCell = row.cells[0];
-    let newData = prompt("请输入新数据：", dataCell.querySelector('input').value);
-    if (newData != null) {
-        dataCell.innerHTML = newData;
-    }
+    attrUserName.value = row.cells[0].textContent;
+    attrName.value = row.cells[1].textContent;
+    attrInfo.value = row.cells[2].textContent;
+
+    attrWindow.classList.remove('hidden');
+
+    USER_CONTEXT['attr_row'] = row
 }
 
 function deleteRow(btn) {
@@ -85,34 +160,11 @@ function deleteRow(btn) {
 
 // 为新增角色按钮添加点击事件监听器
 
-const userWindow = document.getElementById('userWindow');
-const cancelBtn = document.getElementById('cancelBtn');
-const inputName = document.getElementById('inputName');
-const inputGender = document.getElementById('inputGender');
-const inputRole = document.getElementById('inputRole');
-const inputBackground = document.getElementById('inputBackground');
-const saveBtn = document.getElementById('saveBtn');
-
-
-addRoleButton.addEventListener('click', () => {
-  userWindow.classList.remove('hidden');
-});
-
-cancelBtn.addEventListener('click', () => {
-// 清空输入框并关闭模态框
-inputName.value = '';
-inputGender.value = '';
-inputRole.value = '';
-inputBackground.value = '';
-userWindow.classList.add('hidden');
-});
-
-
-saveBtn.addEventListener('click', () => {
-  const name = inputName.value;
-  const gender = inputGender.value;
-  const role = inputRole.value;
-const background = inputBackground.value;
+saveUserChange.addEventListener('click', () => {
+  const name = userName.value;
+  const gender = userGender.value;
+  const role = userRole.value;
+  const background = userBackground.value;
 
 if (name && gender && role && background) {
   // 获取表格的 tbody 元素
@@ -151,11 +203,19 @@ if (name && gender && role && background) {
   tbody.appendChild(newRow);
 
   // 清空输入框并关闭模态框
-  inputName.value = '';
-  inputGender.value = '';
-  inputRole.value = '';
-  inputBackground.value = '';
+  userName.value = '';
+  userGender.value = '';
+  userRole.value = '';
+  userBackground.value = '';
   userWindow.classList.add('hidden');
+
+  if (!(name in USER_INFO)){
+    USER_INFO[name] = {}
+  }
+
+  USER_INFO[name]["gender"] = gender;
+  USER_INFO[name]["role"] = role
+  USER_INFO[name]["bg"] = background;
 }
 else{
 alert('请填写完整信息');
