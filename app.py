@@ -29,6 +29,18 @@ def on_dragging():
     else:
         return jsonify({"status": "error"})
 
+@app.route("/update_json", methods=["POST"])
+def update_json():
+    result = request.json.get("result", None)
+    if result:
+        # 在这里处理从JavaScript获取的结果
+        print("从JavaScript获取的结果：", result)
+        with open(USER_INFO_PATH, "w+") as f:
+            json.dump(result, f, ensure_ascii=False)
+
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "error"})
 
 def get_url(url):
     response = requests.get(url)
