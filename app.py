@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, jsonify
+import os
+import json
+USER_INFO_PATH = os.path.join(os.path.dirname(__file__), "user_info.json")
 
 app = Flask(__name__)
 
@@ -15,6 +18,9 @@ def on_dragging():
     if result:
         # 在这里处理从JavaScript获取的结果
         print("从JavaScript获取的结果：", result)
+        with open(USER_INFO_PATH, "w+") as f:
+            json.dump(result, f)
+
         return jsonify({"status": "success"})
     else:
         return jsonify({"status": "error"})

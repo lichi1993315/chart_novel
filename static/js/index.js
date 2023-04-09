@@ -232,7 +232,7 @@ if (name && gender && role && background) {
 
   USER_INFO[name]["gender"] = gender;
   USER_INFO[name]["role"] = role
-  USER_INFO[name]["bg"] = background;
+  USER_INFO[name]["background"] = background;
 }
 else{
 alert('请填写完整信息');
@@ -240,14 +240,15 @@ alert('请填写完整信息');
 });
 
 const generateBtn = document.getElementById('generate');
-generateBtn.addEventListener('click', function() {
+
+function sendUserInfo() {
   // 在这里添加按钮点击事件的处理程序
   console.log('生成按钮被点击');
     $.ajax({
     url: '/on_dragging',
     type: 'POST',
     contentType: 'application/json',
-    data: JSON.stringify({ 'result': pos_data}),
+    data: JSON.stringify({ 'result': USER_INFO}),
     success: function (response) {
         if (response.status === "success") {
             console.log("结果已成功发送到Flask");
@@ -259,10 +260,11 @@ generateBtn.addEventListener('click', function() {
         console.log("Ajax请求失败");
     }
   });
-});
+}
 
+generateBtn.addEventListener('click', sendUserInfo);
 
-  //
+  // 用来限制name必须是已创建的角色
   // const attrs = document.getElementById("attrs")
   // const tbody = attrs.querySelector("tbody");
   //
