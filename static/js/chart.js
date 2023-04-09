@@ -1,5 +1,5 @@
-var symbolSize = 20;
-var pos_data = [
+let symbolSize = 20;
+let pos_data = [
   [0, 0],
   [1, 0],
   [2, 0],
@@ -61,6 +61,17 @@ function showTooltip(dataIndex) {
 }
 function hideTooltip(dataIndex) {
   myChart.dispatchAction({ type: 'hideTip' });
+}
+
+function changeEcharts(){
+    myChart.setOption({
+    series: [
+      {
+        id: 'a',
+        data: pos_data
+      }
+    ]
+  });
 }
 function onPointDragging(dataIndex, dx, dy) {
   pos_data[dataIndex] = myChart.convertFromPixel('grid', this.position);

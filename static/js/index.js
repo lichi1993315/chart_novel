@@ -46,6 +46,20 @@ addRoleButton.addEventListener('click', () => {
 });
 
 addAttrButton.addEventListener('click', () => {
+    pos_data = [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+      [5, 0],
+      [6, 0],
+      [7, 0],
+      [8, 0],
+      [9, 0],
+    ];
+
+  changeEcharts(pos_data)
   attrWindow.classList.remove('hidden');
 });
 
@@ -70,7 +84,7 @@ saveAttrChange.addEventListener('click', () => {
 
   if (("attr" in USER_INFO[attrUserName.value]) && (attrName.value in USER_INFO[attrUserName.value]["attr"])){
       USER_INFO[attrUserName.value]["attr"][attrName.value]["info"] = attrInfo.value;
-      USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data
+      USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data.slice()
 
       USER_CONTEXT['attr_row'].cells[0].textContent = attrUserName.value;
       USER_CONTEXT['attr_row'].cells[1].textContent = attrName.value;
@@ -129,7 +143,7 @@ saveAttrChange.addEventListener('click', () => {
     }
 
     USER_INFO[attrUserName.value]["attr"][attrName.value]["info"] = attrInfo.value;
-    USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data;
+    USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data.slice();
 
     // 清空输入框并关闭模态框
     attrUserName.value = '';
@@ -149,6 +163,9 @@ function modifyRow(btn) {
     attrInfo.value = row.cells[2].textContent;
 
     attrWindow.classList.remove('hidden');
+    pos_data = USER_INFO[attrUserName.value]["attr"][attrName.value]['data'].slice()
+
+    changeEcharts(pos_data)
 
     USER_CONTEXT['attr_row'] = row
 }
