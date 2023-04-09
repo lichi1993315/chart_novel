@@ -255,6 +255,9 @@ const generateBtn = document.getElementById('generate');
 
 function sendUserInfo() {
   // 在这里添加按钮点击事件的处理程序
+  const tab4 = document.getElementById('tab4');
+  tab4.click();
+
   console.log('生成按钮被点击');
     $.ajax({
     url: '/on_dragging',

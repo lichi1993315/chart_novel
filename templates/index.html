@@ -13,9 +13,9 @@
 <body class="bg-gray-900 text-gray-300">
     <nav class="absolute left-4 top-4 flex">
         <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">小说背景</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">单人属性</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab3">多人属性</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded hover:bg-gray-600 mr-4 text-xl" id="tab4">其他</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">人物编辑器</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab3">其他编辑器</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded hover:bg-gray-600 mr-4 text-xl" id="tab4">故事展示</button>
     </nav>
     <div class="mt-16 ml-4">
         <div class="content">
@@ -74,6 +74,7 @@
         </div>
         <div id="content4" class="content-item hidden">
             <!-- 其他的内容 -->
+            <h3 class="text-lg font-semibold text-gray-600 mb-4">故事显示</h3>
         </div>
     </div>
     <div class="fixed bottom-4 right-4 space-y-8">
@@ -118,12 +119,23 @@
     <div class="bg-white p-6 w-1/2 h-auto rounded-lg border border-gray-300" style="width: 100%">
       <div style="width: 50%">
           <h3 class="text-lg font-semibold text-gray-600 mb-4">角色属性</h3>
-          <label class="block mb-2 text-gray-600">
-            姓名：
-            <select id="attrUserName" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
-              <!-- 动态索引所有的角色 -->
-            </select>
-          </label>
+
+            <div class="flex space-x-4 mb-2 ">
+              <label class="block w-1/2 text-gray-600">
+                角色：
+                <select id="attrUserName" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+                  <!-- 动态索引所有的角色 -->
+                </select>
+              </label>
+               <label class="block w-1/2 text-gray-600">
+                角色2：
+              <select id="attrUserName2" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+                  <!-- 动态索引所有的角色 -->
+                </select>
+              </label>
+              </div>
+
+
           <label class="block mb-2 text-gray-600">
             属性：
             <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
