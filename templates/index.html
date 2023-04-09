@@ -30,7 +30,13 @@
 
                 <div class="mb-4 w-1/2">
                     <label class="block mb-2">小说风格</label>
-                    <input id="storyStyle" class="bg-gray-800 text-gray-300  w-full  rounded p-2" type="text">
+                    <input id="storyStyle" class="bg-gray-800 text-gray-300  w-full  rounded p-2" type="text"
+                    list="datalistOptions" >
+                    <datalist id="datalistOptions">
+                        <option value="玄幻修仙">
+                        <option value="都市传说">
+                        <option value="未来科幻">
+                    </datalist>
                 </div>
 
                 </div>
@@ -161,7 +167,14 @@
 
           <label class="block mb-2 text-gray-600">
             属性：
-            <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+            <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded"
+            list="datalistOptions">
+
+            <datalist id="datalistOptions">
+                <option value="玄幻修仙">
+                <option value="都市传说">
+                <option value="未来科幻">
+            </datalist>
           </label>
           <label class="block mb-4 text-gray-600">
             详情：
