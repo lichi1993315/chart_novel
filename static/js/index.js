@@ -60,11 +60,11 @@ addAttrButton.addEventListener('click', () => {
     ];
 
   var mySelect = document.getElementById("attrUserName");
+
   // 删除已有的选项
   while (mySelect.firstChild) {
     mySelect.removeChild(mySelect.firstChild);
   }
-
 
  let user_names = Object.keys(USER_INFO)
 
@@ -76,8 +76,12 @@ addAttrButton.addEventListener('click', () => {
       mySelect.appendChild(option);
   }
 
+  chart_init()
   changeEcharts(pos_data)
   attrWindow.classList.remove('hidden');
+
+  const summary_chart = document.getElementById('summary_chart');
+  summary_chart.classList.add('hidden')
 });
 
 cancelUserChange.addEventListener('click', () => {
@@ -86,6 +90,7 @@ userName.value = '';
 userRole.value = '';
 userBackground.value = '';
 userWindow.classList.add('hidden');
+
 });
 
 cancelAttrChange.addEventListener('click', () => {
@@ -93,6 +98,8 @@ cancelAttrChange.addEventListener('click', () => {
 attrName.value = '';
 attrInfo.value = '';
 attrWindow.classList.add('hidden');
+const summary_chart = document.getElementById('summary_chart');
+summary_chart.classList.remove('hidden')
 });
 
 saveAttrChange.addEventListener('click', () => {
@@ -167,6 +174,9 @@ saveAttrChange.addEventListener('click', () => {
   else{
     alert('请填写完整信息');
   }
+
+  const summary_chart = document.getElementById('summary_chart');
+    summary_chart.classList.remove('hidden')
 });
 
 function modifyRow(btn) {
@@ -245,9 +255,26 @@ if (name && gender && role && background) {
   USER_INFO[name]["gender"] = gender;
   USER_INFO[name]["role"] = role
   USER_INFO[name]["background"] = background;
+
+  const summarySelect = document.getElementById("summarySelect");
+    // 删除已有的选项
+  while (summarySelect.firstChild) {
+    summarySelect.removeChild(summarySelect.firstChild);
+  }
+
+ let user_names = Object.keys(USER_INFO)
+
+    // 添加选项
+  for (let i = 0; i < user_names.length; i++) {
+      const option = document.createElement("option");
+      option.setAttribute("value", user_names[i]);
+      option.innerHTML = user_names[i];
+      summarySelect.appendChild(option);
+      summarySelect.value = "请选择角色"
+  }
 }
 else{
-alert('请填写完整信息');
+    alert('请填写完整信息');
 }
 });
 

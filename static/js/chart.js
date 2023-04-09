@@ -12,7 +12,11 @@ let pos_data = [
   [9, 0],
 ];
 var myChart = echarts.init(document.getElementById('single_chart'));
-myChart.setOption({
+
+
+function chart_init(){
+  myChart.clear()
+  myChart.setOption({
   tooltip: {
     triggerOn: 'none',
     formatter: function(params) {
@@ -24,8 +28,8 @@ myChart.setOption({
       );
     }
   },
-  xAxis: { min: 0, max: 9, type: 'value', axisLine: { onZero: false }, splitNumber:10},
-  yAxis: { min: -5, max: 5, type: 'value', axisLine: { onZero: false }, splitNumber:10},
+  xAxis: { min: 0, max: 9, type: 'value', axisLine: { onZero: true }, splitNumber:10},
+  yAxis: { min: -5, max: 5, type: 'value', axisLine: { onZero: true }, splitNumber:10},
   series: [
     { id: 'a', type: 'line', smooth: true, symbolSize: symbolSize, data: pos_data }
   ],
@@ -45,6 +49,7 @@ myChart.setOption({
     };
   })
 });
+}
 window.addEventListener('resize', function() {
   myChart.setOption({
     graphic: echarts.util.map(pos_data, function(item, dataIndex) {
