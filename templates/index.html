@@ -53,15 +53,7 @@
             </div>
 
             <div id="content2" class="content-item hidden">
-                <style>
-                    #single_chart {
-                        position: absolute;
-                        top: 40%;
-                        right: 0;
-                        transform: translateY(-50%);
-                    }
-                </style>
-                <div id="single_chart" style="width: 800px; height: 600px;"></div>
+
                 <button id="new_attr" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增属性</button>
                 <table class="w-1/2" id="attrs">
                     <thead>
@@ -89,6 +81,7 @@
         <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="export">导出</button>
         <button class="bg-yellow-500 text-gray-900 py-4 px-8 rounded text-2xl" id="generate">小说生成</button>
     </div>
+</div>
 
   <div id="userWindow" class="hidden fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen">
@@ -116,28 +109,37 @@
     </div>
   </div>
 
-
-  <div id="attrWindow" class="hidden fixed z-10 inset-0 overflow-y-auto">
-    <div class="flex items-center justify-center min-h-screen">
-      <div class="bg-white p-6 rounded-lg border border-gray-300">
-        <h3 class="text-lg font-semibold text-gray-600 mb-4">角色属性</h3>
-        <label class="block mb-2 text-gray-600">
-          姓名：
-          <input id="attrUserName" type="text" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-        </label>
-        <label class="block mb-2 text-gray-600">
-          属性：
-          <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-        </label>
-        <label class="block mb-4 text-gray-600">
-          详情：
-          <input id="attrInfo" type="text" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-        </label>
-        <button id="saveAttrChange" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存</button>
-        <button id="cancelAttrChange" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消</button>
-      </div>
+<div id="attrWindow" class="hidden fixed z-10 inset-0">
+  <div class="flex items-center justify-start min-h-screen p-4">
+    <div class="bg-white p-6 w-1/2 h-auto rounded-lg border border-gray-300">
+      <h3 class="text-lg font-semibold text-gray-600 mb-4">角色属性</h3>
+      <style>
+        #single_chart {
+          position: absolute;
+          top: 50%;
+          right: 5%;
+          transform: translateY(-50%);
+        }
+      </style>
+      <div id="single_chart" class="block h-full" style="width: 800px; height: 600px;"></div>
+      <label class="block mb-2 text-gray-600">
+        姓名：
+        <input id="attrUserName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+      </label>
+      <label class="block mb-2 text-gray-600">
+        属性：
+        <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+      </label>
+      <label class="block mb-4 text-gray-600">
+        详情：
+        <input id="attrInfo" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded">
+      </label>
+      <button id="saveAttrChange" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存</button>
+      <button id="cancelAttrChange" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消</button>
     </div>
   </div>
-
-
 </div>
+
+
+
+</body>
