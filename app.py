@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+from system_prompt import get_all_prompts
 import requests
 import os
 import json
@@ -22,8 +23,20 @@ def on_dragging():
     if result:
         # 在这里处理从JavaScript获取的结果
         print("从JavaScript获取的结果：", result)
+
         with open(USER_INFO_PATH, "w+") as f:
             json.dump(result, f, ensure_ascii=False)
+
+        prompt = get_all_prompts(result)
+
+        url = "https://game.bugbonus.com/v1/txt2img/unityjson"
+
+        json_str = json.dumps(prompt, ensure_ascii=False).encode('utf-8')
+        print(json_str)
+
+        headers = {"Content-Type": "application/json"}
+        response = requests.post(url, data=json_str, headers=headers)
+        print(response.json())
 
         return jsonify({"status": "success"})
     else:
