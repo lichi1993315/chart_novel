@@ -12,31 +12,32 @@
 </head>
 <body class="bg-gray-900 text-gray-300">
     <nav class="absolute left-4 top-4 flex">
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">小说背景</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">人物编辑器</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab3">其他编辑器</button>
-        <button class="bg-gray-700 text-gray-300 py-1 px-3 rounded hover:bg-gray-600 mr-4 text-xl" id="tab4">故事展示</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">小说背景</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">属性编辑器</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab3">其他编辑器</button>
+        <button class="bg-gray-700 text-gray-300 py-1 px-3 hover:bg-gray-600 mr-4 text-xl" id="tab4">故事展示</button>
     </nav>
-    <div class="mt-16 ml-4">
+    <div class="mt-24 ml-4 mr-4">
         <div class="content">
             <div id="content1" class="content-item">
-                <div class="mb-4">
+                <div class="flex space-x-4">
+
+                <div class="mb-4 w-1/2">
                     <label class="block mb-2">小说名字</label>
-                    <input class="bg-gray-800 text-gray-300 rounded w-full p-2 " type="text">
+                    <input id = "storyName" class="bg-gray-800 text-gray-300 w-full rounded p-2" type="text">
                 </div>
-                <div class="mb-4">
-                    <label class="block mb-2">章节数量</label>
-                    <input class="bg-gray-800 text-gray-300 rounded w-full p-2 " type="number">
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2">小说背景</label>
-                    <input class="bg-gray-800 text-gray-300 rounded w-full p-2 " type="text">
-                </div>
-                <div class="mb-4">
+
+                <div class="mb-4 w-1/2">
                     <label class="block mb-2">小说风格</label>
-                    <input class="bg-gray-800 text-gray-300 rounded w-full p-2 " type="text">
+                    <input id="storyStyle" class="bg-gray-800 text-gray-300  w-full  rounded p-2" type="text">
                 </div>
-                <button id="new_role" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增角色</button>
+
+                </div>
+                <div class="mb-12 h-24">
+                    <label class="block mb-2">小说背景</label>
+                    <input id="storyBackground" class="h-full bg-gray-800 text-gray-300 rounded w-full p-2" type="text">
+                </div>
+                <button id="new_role" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4 mt-8">新增角色</button>
                 <table class="w-full" id="roles">
                     <thead>
                         <tr>

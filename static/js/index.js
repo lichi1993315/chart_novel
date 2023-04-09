@@ -1,4 +1,4 @@
-USER_INFO = {
+let USER_INFO = {
 
 }
 
@@ -258,12 +258,25 @@ function sendUserInfo() {
   const tab4 = document.getElementById('tab4');
   tab4.click();
 
-  console.log('生成按钮被点击');
+  const storyName = document.getElementById('storyName').value;
+  const storyStyle = document.getElementById('storyStyle').value;
+  const storyBackground = document.getElementById('storyBackground').value;
+
+    const store_info = {
+        "storyName": storyName,
+        "storyStyle": storyStyle,
+        "storyBackground": storyBackground
+    };
+
+    console.log('生成按钮被点击');
     $.ajax({
     url: '/on_dragging',
     type: 'POST',
     contentType: 'application/json',
-    data: JSON.stringify({ 'result': USER_INFO}),
+    data: JSON.stringify({ 'result': {
+          "user_info": USER_INFO,
+            "story_info": store_info
+        }}),
     success: function (response) {
         if (response.status === "success") {
             console.log("结果已成功发送到Flask");
