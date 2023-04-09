@@ -91,7 +91,7 @@ You should provide detailed descriptions of events and states for each numerical
     return promts
 
 
-def get_all_prompts(info):
+def get_all_prompts(user_info):
     system_prompt, user_prompt = get_system_prompt(user_info)
     chapter_prompt = get_chapter_prompt(user_info)
     return {"system": system_prompt, "data": [user_prompt] + chapter_prompt}
