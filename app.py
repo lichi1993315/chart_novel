@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 import json
@@ -6,6 +7,7 @@ import json
 USER_INFO_PATH = os.path.join(os.path.dirname(__file__), "user_info.json")
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -34,7 +36,6 @@ def get_url(url):
         data = response.json()
         print(data)
         response = jsonify(data)
-        response.headers.add("Access-Control-Allow-Origin", "*")
         return response
     else:
         return "下载JSON文件失败"
@@ -53,9 +54,10 @@ def get_les():
 
 
 @app.route("/chart/unity.json")
-def get_les():
-    url = "https://echarts.apache.org/examples/data/asset/data/les-miserables.json"
+def get_unity():
+    url = "https://game.bugbonus.com/assets/unity.json"
     return get_url(url)
+
 
 
 if __name__ == "__main__":
