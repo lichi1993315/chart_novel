@@ -1,5 +1,4 @@
 let USER_INFO = {
-
 }
 
 USER_CONTEXT = {
@@ -40,6 +39,15 @@ const attrName = document.getElementById('attrName');
 const attrInfo = document.getElementById('attrInfo');
 const saveAttrChange = document.getElementById('saveAttrChange');
 const cancelAttrChange = document.getElementById('cancelAttrChange');
+
+attrName.addEventListener('change', function() {
+    if (attrName.value === "爱情"){
+        attrInfo.value = "数值范围是-5到5, -5代表互相深深仇恨，5代表互相深深喜爱，0代表没有感情纠葛"
+    }else if (attrName.value === "战斗力"){
+        attrInfo.value = "数值范围是-5到5, -5代表一只超级菜鸡或者受过重伤或者先天残疾，5代表已经成为最强王者，0代表正常人"
+    }
+}
+)
 
 addRoleButton.addEventListener('click', () => {
   userWindow.classList.remove('hidden');

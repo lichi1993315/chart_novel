@@ -6,14 +6,16 @@ attr_template = f"""
 
 
 def get_system_prompt(info):
-    main_user = ""
     attr_str = ""
+    role_str = ""
 
     style = info["story_info"]["storyStyle"]
 
     for name, user_info in info["user_info"].items():
-        if user_info["role"] == "主角":
-            main_user = name
+        role = user_info["role"]
+        bg = user_info["background"]
+
+        role_str += f"{name}: {role}, {bg}\n"
 
         if "attr" not in user_info:
             continue
@@ -34,7 +36,7 @@ You are a scale judge and novelist, and you can write a 10-chapter story based o
     user_prompt = f"""
 背景：修仙世界
 小说类型：{style}
-主角：{main_user}
+{role_str}
 {attr_str}
 """
 
