@@ -19,7 +19,7 @@ def on_dragging():
         # 在这里处理从JavaScript获取的结果
         print("从JavaScript获取的结果：", result)
         with open(USER_INFO_PATH, "w+") as f:
-            json.dump(result, f)
+            json.dump(result, f, ensure_ascii=False)
 
         return jsonify({"status": "success"})
     else:
