@@ -31,7 +31,6 @@ This is the outline:你是否想过，在霓虹璀璨的都市之下，潜藏着
 You are a scale judge and novelist, and you can write a 10-chapter story based on different numerical values. 并给每个角色定义了一系列的属性，以及每个章节属性的变化情况。Now, I will give you some input items: Story background, Character, Attributes and the meaning of them, numerical range of each attribute’s value, corresponding definition of each range, the initial value, change value and final value of each attribute in each chapter,Please write the story using following instructions:
 1. A positive change value represents a positive trend and a better result, a negative change value represents a worse trend and a worse result, and the absolute value of Change value represents the strength of this change in this chapter. Absolute values less than 3 indicate moderate and slow, absolute values between 3-6 indicate strong, and absolute values greater than 6 indicate very intense. Please design corresponding events and causal relationships based on the change value values in each chapter
 2. The values of different values need to reflect the different states of attributes based on their range and definition, and there must be clear differentiation
-3. The initial value of each attribute in each chapter=the final value of the corresponding attribute in the previous chapter
 """
     user_prompt = f"""
 背景：修仙世界
@@ -68,14 +67,15 @@ def get_chapter_prompt(info):
 
                     delta = 1 if 0 <= delta < 1 else delta
                     delta = -1 if -1 < delta < 0 else delta
-
-                    delta = delta
-
                     event = get_event(attr_name, delta, delta)
                     event_prompt += f"""重要事件：{event.to_string(index=False)}\n"""
                     attr_prompt += f"""第{chapter}章{name}的{attr_name}数值: {last_value} -> {value}\n"""
                 else:
-                    attr_prompt += f"""第{chapter}章{name}的{attr_name}数值: {value}\n"""
+                    delta = 2
+
+                    event = get_event(attr_name, delta, delta)
+                    event_prompt += f"""重要事件：{event.to_string(index=False)}\n"""
+                    attr_prompt += f"""第{chapter}章{name}的{attr_name}数值: {value - 2} -> {value}\n"""
 
         chapter_prompt = f"""第{chapter}章
 {event_prompt}
@@ -95,7 +95,8 @@ provide detailed descriptions of events. Please exceed 500 words in this chapter
 def get_all_prompts(user_info):
     system_prompt, user_prompt = get_system_prompt(user_info)
     chapter_prompt = get_chapter_prompt(user_info)
-    return {"system": system_prompt, "data": [user_prompt] + chapter_prompt}
+    chapter_prompt[0] = user_prompt + chapter_prompt[0]
+    return {"system": system_prompt, "data": chapter_prompt + [user_prompt]}
 
 
 if __name__ == "__main__":
