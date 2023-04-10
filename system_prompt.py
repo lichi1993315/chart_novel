@@ -81,9 +81,10 @@ def get_chapter_prompt(info):
 {event_prompt}
 {attr_prompt}
 
-You should write this chapter based on the above inputs and previous storyline, and pay attention to the coherence of the story, character emotions, and character relationships between this chapter and previous chapters.
-You should avoid mentioning any numerical values.
-You should provide detailed descriptions of events and states for each numerical change itself. Please exceed 800 words in this chapter and describe it in expressive language.
+write this chapter based on the above inputs and previous storyline, and pay attention to the coherence of the story, character emotions, and character relationships between this chapter and previous chapters.
+never mention any numerical values.
+provide detailed descriptions of events. Please exceed 500 words in this chapter and describe it in expressive language.
+
 """
 
         print(chapter_prompt)
