@@ -290,8 +290,8 @@ const generateBtn = document.getElementById('generate');
 
 function sendUserInfo() {
   // 在这里添加按钮点击事件的处理程序
-  const tab4 = document.getElementById('tab4');
-  tab4.click();
+  // const tab4 = document.getElementById('tab4');
+  // tab4.click();
 
   const storyName = document.getElementById('storyName').value;
   const storyStyle = document.getElementById('storyStyle').value;
@@ -315,6 +315,7 @@ function sendUserInfo() {
     success: function (response) {
         if (response.status === "success") {
             console.log("结果已成功发送到Flask");
+            alert('已开始生成小说 :)');
         } else {
             console.log("发送结果失败");
         }
@@ -323,6 +324,8 @@ function sendUserInfo() {
         console.log("Ajax请求失败");
     }
   });
+
+
 }
 
 generateBtn.addEventListener('click', sendUserInfo);
