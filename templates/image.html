@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/image.js') }}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/image.css') }}">
+</head>
+<body class="bg-gray-800 text-gray-300">
+<div class="bg-gray-900 flex space-x-6 py-4 ">
+    <label class="text-gray-300 py-1 px-3 mr-2 mr-4 text-2xl" style="font-weight: bold">Refactor</label>
+
+    <div class="flex space-x-6 text-gray-300 py-1 px-3 mr-2 mr-4 text-xl" style="font-weight: bold">
+        <a href="/" class="hover:text-gray-400  px-3 hover:bg-gray-600">小说</a>
+        <a href="poetry" class="hover:text-gray-400  px-3 hover:bg-gray-600">诗歌</a>
+        <a href="image" class="hover:text-gray-400  px-3 hover:bg-gray-600">绘图</a>
+    </div>
+</div>
+
+<div class="bg-gray-900 mr-4 mt-8 ml-4 pb-12">
+    <nav class="left-4 flex py-2">
+        <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">展开画卷
+        </button>
+        <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">注入灵感
+        </button>
+        <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab3">作品生成
+        </button>
+    </nav>
+
+    <hr class="border-t border-gray-600">
+
+    <div class="mt-8 ml-4 mr-4">
+        <div class="content">
+            <div id="content1" class="content-item">
+                <textarea class="bg-gray-800 text-gray-300 rounded pb-8 truncate h-24 w-full"
+                          placeholder="Prompt"></textarea>
+                <textarea class="mt-4 bg-gray-800 text-gray-300 rounded pb-8 truncate h-24 w-full"
+                          placeholder="Negative Prompt"></textarea>
+
+                <div class="mb-12 mt-4 h-24 w-1/2">
+                    <div class="flex space-x-2">
+                        <label class="block mb-2 w-full">Width</label>
+                        <span id="slider-value-width" class="ml-2">512</span>
+                    </div>
+                    <input id="slider-width" type="range" min="0" max="1024" step="1" value="512" class="slider w-full">
+
+                    <div class="flex space-x-2">
+                        <label class="block mb-2 w-full">Height</label>
+                        <span id="slider-value-height" class="ml-2">512</span>
+                    </div>
+                    <input id="slider-height" type="range" min="0" max="1024" step="1" value="512"
+                           class="slider w-full">
+
+                </div>
+            </div>
+
+            <div id="content2" class="content-item hidden">
+
+                <textarea id="prompt-detail" class="bg-gray-800 text-gray-300 rounded pb-8 truncate h-24 w-full" placeholder="Prompt"></textarea>
+
+                <details class="border rounded-md shadow-md bg-gray-900">
+                    <summary class="py-2 px-4 cursor-pointer bg-gray-900 hover:bg-gray-600">
+                        质量
+                    </summary>
+
+                    <div class="promptList">
+                        <div class="PromptItem dnd-item type-word subType-quality disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">UHD</span></div>
+                                <div class="langName name"><span>超高清</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-quality disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">best quality</span></div>
+                                <div class="langName name"><span>最佳质量</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-quality disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">super detail</span></div>
+                                <div class="langName name"><span>非常详细</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-quality disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span"> master piece</span></div>
+                                <div class="langName name"><span>杰作</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-quality disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">4K</span></div>
+                                <div class="langName name"><span>4K</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="border rounded-md shadow-md bg-gray-900">
+                    <summary class="py-2 px-4 cursor-pointer bg-gray-900 hover:bg-gray-600">
+                        色调
+                    </summary>
+
+                    <div class="promptList">
+                        <div class="PromptItem dnd-item type-word subType-style disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Black</span></div>
+                                <div class="langName name"><span>黑色</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-style disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Red</span></div>
+                                <div class="langName name"><span>红色</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-style disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Silver</span></div>
+                                <div class="langName name"><span>银色</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-style disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Cyan</span></div>
+                                <div class="langName name"><span>青色</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-style disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Blue</span></div>
+                                <div class="langName name"><span>蓝色</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="border rounded-md shadow-md bg-gray-900">
+                    <summary class="py-2 px-4 cursor-pointer bg-gray-900 hover:bg-gray-600">
+                        主题
+                    </summary>
+
+                    <div class="promptList">
+                        <div class="PromptItem dnd-item type-word subType-command disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Realism</span></div>
+                                <div class="langName name"><span>现实主义</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-command disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Surrealism</span></div>
+                                <div class="langName name"><span>超现实主义</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-command disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Unrealistic</span></div>
+                                <div class="langName name"><span>不真实的</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-command disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">dreamlike</span></div>
+                                <div class="langName name"><span>梦幻的</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-command disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">Abstraction</span></div>
+                                <div class="langName name"><span>抽象的</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="border rounded-md shadow-md bg-gray-900">
+                    <summary class="py-2 px-4 cursor-pointer bg-gray-900 hover:bg-gray-600">
+                        容貌
+                    </summary>
+
+                    <div class="promptList">
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">silver hair</span></div>
+                                <div class="langName name"><span>银发</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">red hair</span></div>
+                                <div class="langName name"><span>红发</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">green hair</span></div>
+                                <div class="langName name"><span>绿发</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">curly hair</span></div>
+                                <div class="langName name"><span>卷发</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">braid</span></div>
+                                <div class="langName name"><span>辫子</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">double bun</span></div>
+                                <div class="langName name"><span>双丸子头</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">messy hair</span></div>
+                                <div class="langName name"><span>凌乱发型</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                        <div class="PromptItem dnd-item type-word subType-eg disabled">
+                            <div class="content">
+                                <div class="displayName name"><span class="leaf_span">ponytail</span></div>
+                                <div class="langName name"><span>马尾</span></div>
+                            </div>
+                            <div class="dnd-slots">
+                                <div class="dnd-slot-pre"></div>
+                                <div class="dnd-slot-next"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+            </div>
+
+
+            <div id="content3" class="content-item hidden">
+
+
+                <div class="flex space-x-4">
+                    <div id="echartsDemo0" class="block w-1/2" style="width: 700px; height: 400px;"></div>
+                    <div id="echartsDemo1" class="block w-1/2" style="width: 700px; height: 400px;"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="fixed bottom-4 right-4 space-y-8">
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="import">导入</button>
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="export">导出</button>
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 rounded text-2xl" id="generate">小说生成</button>
+        </div>
+    </div>
+
+    <div id="userWindow" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg border border-gray-300">
+                <h3 class="text-lg font-semibold text-gray-600 mb-4">角色信息</h3>
+                <label class="block mb-2 text-gray-600">
+                    姓名：
+                    <input id="userName" type="text" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
+                </label>
+                <label class="block mb-2 text-gray-600">
+                    性别：
+                    <select id="userGender" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </label>
+                <label class="block mb-4 text-gray-600">
+                    角色：
+                    <input id="userRole" type="text" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
+                </label>
+                <label class="block mb-4 text-gray-600">
+                    背景：
+                    <input id="userBackground" type="text"
+                           class="text-gray-600 border border-gray-400 p-1 rounded w-full">
+                </label>
+                <button id="saveUserChange"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存
+                </button>
+                <button id="cancelUserChange"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="attrWindow" class="hidden fixed z-10 inset-0">
+        <div class="flex items-center justify-start min-h-screen p-4">
+            <div class="bg-white p-6 w-1/2 h-auto rounded-lg border border-gray-300" style="width: 100%">
+                <div style="width: 50%">
+                    <h3 class="text-lg font-semibold text-gray-600 mb-4">角色属性</h3>
+
+                    <div class="flex space-x-4 mb-2 ">
+                        <label class="block w-1/2 text-gray-600">
+                            角色：
+                            <select id="attrUserName" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+                                <!-- 动态索引所有的角色 -->
+                            </select>
+                        </label>
+                        <label class="block w-1/2 text-gray-600">
+                            角色2：
+                            <select id="attrUserName2" class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
+                                <!-- 动态索引所有的角色 -->
+                            </select>
+                        </label>
+                    </div>
+
+
+                    <label class="block mb-2 text-gray-600">
+                        属性：
+                        <input id="attrName" type="text" class="text-gray-600 border border-gray-400 p-1 w-full rounded"
+                               list="attrDatalistOptions">
+
+                        <datalist id="attrDatalistOptions">
+                            <option value="爱情">
+                            <option value="战斗力">
+                            <option value="魅力">
+                        </datalist>
+
+                    </label>
+                    <label class="block mb-4 text-gray-600">
+                        详情：
+                        <input id="attrInfo" type="text" value="无"
+                               class="text-gray-600 border border-gray-400 p-1 w-full rounded">
+                    </label>
+                    <button id="saveAttrChange"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存
+                    </button>
+                    <button id="cancelAttrChange"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消
+                    </button>
+                </div>
+            </div>
+
+            <style>
+                #single_chart {
+                    position: absolute;
+                    top: 50%;
+                    right: 5%;
+                    transform: translateY(-50%);
+                }
+            </style>
+            <div id="single_chart" class="block h-full" style="width: 700px; height: 400px;"></div>
+
+        </div>
+    </div>
+
+</div>
+
+
+</body>

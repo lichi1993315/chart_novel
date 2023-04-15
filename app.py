@@ -16,6 +16,15 @@ def home():
     # Render the template with the options for each chart
     return render_template("index.html")
 
+@app.route("/poetry")
+def poetry():
+    # Render the template with the options for each chart
+    return render_template("poetry.html")
+
+@app.route("/image")
+def image():
+    # Render the template with the options for each chart
+    return render_template("image.html")
 
 @app.route("/on_dragging", methods=["POST"])
 def on_dragging():
