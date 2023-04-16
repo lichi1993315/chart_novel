@@ -1,4 +1,114 @@
-let USER_INFO = {}
+let STORE_INFO = {
+    "storyName": "诛仙",
+    "storyStyle": "玄幻",
+    "storyBackground": "残酷的修仙世界"
+}
+
+let USER_INFO = {
+    "张小凡": {
+        "gender": "男",
+        "role": "男主角",
+        "background": "草庙村的平凡少年，性格敦厚",
+        "attr": {
+            "战斗力": {
+                "info": "数值范围是-5到5, -5代表手无缚鸡之力，5代表绝世强者，0代表正常人",
+                "data": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        1.0000000000000004,
+                        1.4814814814814818
+                    ],
+                    [
+                        1.9839285714285722,
+                        2.6296296296296298
+                    ],
+                    [
+                        3.064285714285714,
+                        1.0370370370370372
+                    ],
+                    [
+                        3.951785714285715,
+                        -1.518518518518519
+                    ],
+                    [
+                        4.951785714285714,
+                        -3.851851851851853
+                    ],
+                    [
+                        6.000000000000001,
+                        -0.8518518518518512
+                    ],
+                    [
+                        7.080357142857144,
+                        2.2222222222222223
+                    ],
+                    [
+                        7.919642857142859,
+                        3.703703703703704
+                    ],
+                    [
+                        8.983928571428573,
+                        4.777777777777779
+                    ]
+                ]
+            },
+            "爱情": {
+                "info": "数值范围是-5到5, -5代表互相深深仇恨，5代表山盟海誓，0代表平淡如水",
+                "data": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        0.8232142857142861,
+                        1.5555555555555554
+                    ],
+                    [
+                        1.9678571428571434,
+                        2.518518518518519
+                    ],
+                    [
+                        3.1125,
+                        0.22222222222222232
+                    ],
+                    [
+                        4.080357142857144,
+                        1.4814814814814818
+                    ],
+                    [
+                        4.935714285714286,
+                        2.814814814814815
+                    ],
+                    [
+                        5.8875,
+                        3.2962962962962967
+                    ],
+                    [
+                        7.016071428571429,
+                        2.481481481481482
+                    ],
+                    [
+                        8.016071428571431,
+                        0.7777777777777777
+                    ],
+                    [
+                        8.967857142857143,
+                        -0.11111111111111072
+                    ]
+                ]
+            }
+        }
+    },
+    "碧瑶": {
+        "gender": "女",
+        "role": "女主角",
+        "background": "魔教教主之女"
+    }
+}
+
 
 USER_CONTEXT = {}
 
@@ -108,9 +218,62 @@ cancelAttrChange.addEventListener('click', () => {
     summary_chart.classList.remove('hidden')
 });
 
-saveAttrChange.addEventListener('click', () => {
+let init_over = false
 
-    if (("attr" in USER_INFO[attrUserName.value]) && (attrName.value in USER_INFO[attrUserName.value]["attr"])) {
+function init_user_info() {
+    document.getElementById('storyName').value = STORE_INFO["storyName"];
+    document.getElementById('storyStyle').value = STORE_INFO["storyStyle"];
+    document.getElementById('storyBackground').value = STORE_INFO["storyBackground"];
+
+    var mySelect = document.getElementById("attrUserName");
+
+    while (mySelect.firstChild) {
+        mySelect.removeChild(mySelect.firstChild);
+    }
+
+    let user_names = Object.keys(USER_INFO)
+
+    for (var i = 0; i < user_names.length; i++) {
+        const option = document.createElement("option");
+        option.setAttribute("value", user_names[i]);
+        option.innerHTML = user_names[i];
+        mySelect.appendChild(option);
+    }
+
+    for (let _user_name in USER_INFO) {
+        let _user_info = USER_INFO[_user_name]
+        let _gender = _user_info["gender"]
+        let _role = _user_info["role"]
+        let _background = _user_info["background"]
+        let _attr = _user_info["attr"]
+
+
+        userName.value = _user_name;
+        userGender.value = _gender;
+        userRole.value = _role;
+        userBackground.value = _background;
+
+        updateUserItem()
+
+        if (_attr) {
+            for (let _attr_name in _attr) {
+                let _attr_info = _attr[_attr_name]
+                let _info = _attr_info["info"]
+                let _data = _attr_info["data"]
+                attrUserName.value = _user_name;
+                attrName.value = _attr_name;
+                attrInfo.value = _info;
+                pos_data = _data.slice()
+                updateAttrItem()
+            }
+        }
+    }
+}
+
+init_user_info()
+
+function updateAttrItem() {
+    if (init_over && ("attr" in USER_INFO[attrUserName.value]) && (attrName.value in USER_INFO[attrUserName.value]["attr"])) {
         USER_INFO[attrUserName.value]["attr"][attrName.value]["info"] = attrInfo.value;
         USER_INFO[attrUserName.value]["attr"][attrName.value]["data"] = pos_data.slice()
 
@@ -190,7 +353,9 @@ saveAttrChange.addEventListener('click', () => {
 
     update_user_summary(attrUserName.value)
 
-});
+}
+
+saveAttrChange.addEventListener('click', updateAttrItem);
 
 function modifyRow(btn) {
     const summary_chart = document.getElementById('summary_chart');
@@ -217,7 +382,7 @@ function deleteRow(btn) {
 
 // 为新增角色按钮添加点击事件监听器
 
-saveUserChange.addEventListener('click', () => {
+function updateUserItem() {
     const name = userName.value;
     const gender = userGender.value;
     const role = userRole.value;
@@ -292,7 +457,9 @@ saveUserChange.addEventListener('click', () => {
     } else {
         alert('请填写完整信息');
     }
-});
+}
+
+saveUserChange.addEventListener('click', updateAttrItem);
 
 const generateBtn = document.getElementById('generate');
 
