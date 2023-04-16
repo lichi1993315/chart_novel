@@ -119,6 +119,17 @@ const contentItems = document.querySelectorAll(".content-item");
 // 为每个标签按钮添加点击事件监听器
 tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
+        tabs.forEach((tab2, index2) => {
+            tab2.classList.remove("bg-gray-600")
+            tab2.classList.remove("bg-gray-900")
+
+            if (index2 === index) {
+                tabs[index].classList.add("bg-gray-600");
+            } else {
+                tab2.classList.add("bg-gray-900")
+            }
+        })
+
         // 隐藏所有内容项
         contentItems.forEach((item) => {
             item.classList.add("hidden");
@@ -268,6 +279,8 @@ function init_user_info() {
             }
         }
     }
+
+    init_over = true
 }
 
 init_user_info()
@@ -452,14 +465,13 @@ function updateUserItem() {
             option.setAttribute("value", user_names[i]);
             option.innerHTML = user_names[i];
             summarySelect.appendChild(option);
-            summarySelect.value = "请选择角色"
         }
     } else {
         alert('请填写完整信息');
     }
 }
 
-saveUserChange.addEventListener('click', updateAttrItem);
+saveUserChange.addEventListener('click', updateUserItem);
 
 const generateBtn = document.getElementById('generate');
 

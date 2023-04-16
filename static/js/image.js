@@ -13,19 +13,30 @@ sliderH.addEventListener('input', () => {
 });
 
 // 获取所有标签按钮和内容项
-const imageTabs = document.querySelectorAll("nav button");
-const imageContentItems = document.querySelectorAll(".content-item");
+const tabs = document.querySelectorAll("nav button");
+const contentItems = document.querySelectorAll(".content-item");
 
 // 为每个标签按钮添加点击事件监听器
-imageTabs.forEach((tab, index) => {
+tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
+        tabs.forEach((tab2, index2) => {
+            tab2.classList.remove("bg-gray-600")
+            tab2.classList.remove("bg-gray-900")
+
+            if (index2 === index) {
+                tabs[index].classList.add("bg-gray-600");
+            } else {
+                tab2.classList.add("bg-gray-900")
+            }
+        })
+
         // 隐藏所有内容项
-        imageContentItems.forEach((item) => {
+        contentItems.forEach((item) => {
             item.classList.add("hidden");
         });
 
         // 显示与点击的标签对应的内容项
-        imageContentItems[index].classList.remove("hidden");
+        contentItems[index].classList.remove("hidden");
     });
 });
 

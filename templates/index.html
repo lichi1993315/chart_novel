@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>导航栏示例</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/summary.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/chart.js') }}" defer></script>
@@ -23,9 +23,10 @@
         <a href="image" class="hover:text-gray-400  px-3 hover:bg-gray-600">绘图</a>
     </div>
 </div>
+
 <div class="bg-gray-900 mr-4 mt-8 ml-4 pb-96">
     <nav class="left-4 flex py-2">
-        <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">创建世界
+        <button class="bg-gray-600 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">创建世界
         </button>
         <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">增添情节
         </button>
@@ -77,7 +78,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div id="content2" class="content-item hidden">
 
                 <button id="new_attr" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增情节</button>
@@ -119,9 +119,77 @@
                 </div>
             </div>
             <div id="content4" class="content-item hidden">
-                <!-- 其他的内容 -->
-                <iframe src="https://game.bugbonus.com/" frameborder="0" style="width: 1200px; height: 800px;"></iframe>
-                <h3 class="text-lg font-semibold text-gray-600 mb-4">故事显示</h3>
+
+                <div class="space-y-4">
+                    <!-- 其他的内容 -->
+                    {#                <iframe src="https://game.bugbonus.com/" frameborder="0" style="width: 1200px; height: 800px;"></iframe>#}
+                    <div class="flex space-x-4  items-center justify-center">
+                        <textarea
+                                class="chapter bg-gray-800 text-gray-300 rounded truncate w-full">    很快，一锅粥有七、八成都进入了唐三的肚子，长出口气，将碗放在桌子上。耷拉的眼皮睁开了几分，看向母亲。
+    “有工作你就先接下，下午我再做。我去再睡一会儿。”
+    母亲生活习惯很有规律，上午都是睡觉，下午画画，作为心灵寄托，晚上则是为家庭照顾孩子。“好的，妈妈。”唐三点了点头。
+    母亲站起身，喝了不少粥，她的身体也终于不再摇晃了，朝着里间走去。“妈妈。”唐三突然叫了一声。
+    母亲站住身体，扭头看向他，眉宇间明显多了几分不耐。
+    唐三指着角落里一块画板道：“这块画板能不能给我用？”前世他是唐门最出色的外门弟子，对于制造各种暗器极其熟悉。而到了这个世界之后，他虽然也修炼了几年，但实力还远远不足，同时，他也从未想过要将自己最擅长的暗器制造放下，他现在已经开始尝试着学习绘画了，但才华却成了大问题。
+    母亲打量了一下画板，“哦，你想学画画？”走过去低下头看了看，再扭头看向唐三，“你以后想做个画家么？”
+    唐三点了点头，画家这个职业无疑是最适合他来发挥创意的，“妈妈，你年纪大了，再过几年，等我大一点，您就教我画画，让我接替你的工作吧。”以前他做的都是最精密暗器制造的工作，最简单的绘画他反而不会。
+    母亲略微有些失神，喃喃的道：“画家，似乎也不错。”拉过一把破旧的椅子，她直接在那块画板面前坐了下来，懒散的道：“小三，你告诉我，什么样的画家，才是最好的画家。”
+    唐三想了想，道：“能够画出传世之作品的画家，应该就是最好的画家吧。”他曾经听村子里的人说过，在这个世界是有传世之作存在的，尽管他不知道传世之作究竟是什么。但挂上一个传字，想来应该不错。
+    母亲眼中闪过一丝嘲弄的光彩，“传世之作？小三也知道传世之作了。那你告诉我，传世之作是怎么画出来的？”
+    唐三想也不想，直接道：“当然是用最好的颜料。”
+    母亲伸出一根食指，在唐三的面前摇了摇，“如果你想做一个合格的画家，记住我的话，用上等颜料画出传世之作，那不是最好的画家，最多只是个技艺高超的画师。用平凡的颜料画出传世之作，才是真正的大师。”
+</textarea>
+                        <button class="bg-green-600 text-gray-200 py-1 px-3 rounded  h-12 w-24 text-xl">绘图</button>
+                    </div>
+                    <div class="flex space-x-4  items-center justify-center">
+                        <textarea
+                                class="chapter bg-gray-800 text-gray-300 rounded pb-8 truncate h-full w-full">    “用平凡的颜料画出传世之作？”唐三有些吃惊地看着母亲，平日里，她很少和他说话，今天已经算是最多的时候了。
+    站起身，母亲指了指房间另一边的画板和颜料，“想成为一名画家，和我学画画。那么，你先画一万幅画。才有这个资格。”
+    那是一块普通的画板，上面沾染着各种颜色的颜料，与那些高档的画板相比，差距是显而易见的。
+    “现在，你还可以改变主意。”母亲淡淡的说道。已经准备回里间继续画画去了。
+    “妈妈，我愿意试试。”唐三的声音清脆而平静，但却包含着一分坚定。
+    母亲有些意外的看向他，“好。”一边说着，她走过去，将那些已用过的画板整理好，放在了唐三的工作台上。
+    做完这些，母亲回里间画画去了。
+    唐三是一个心志坚定的人，否则，他也不能凭借着一张残破不堪的图纸就制造出佛怒唐莲。
+    那唐门最顶级的机括类暗器,那足足耗费了他十年的时间。
+    准备好颜料和画笔，他开始了自己的工作。
+    尽管唐三并不会画画，但他经常看母亲画画，过程还是知道的。
+    他拿起画笔，蘸了一些颜料，开始在画板上描绘起来。普通五、六岁的孩子根本不可能画得如此认真，更不用说是挥洒自如地绘画了。
+    但唐三还是将画笔拿了起来，玄天功力运全身，尽管尚未突破第一重，但他也拥有了成年人级别的精神力量。
+    笔触在画板上滑过，这是唐三的第一次尝试，也拉开了学画的序幕。</textarea>
+                        <button class="bg-green-600 text-gray-200 py-1 px-3 rounded  h-12 w-24 text-xl">绘图</button>
+                    </div>
+                    <div class="flex space-x-4  items-center justify-center">
+                        <textarea
+                                class="chapter bg-gray-800 text-gray-300 rounded pb-8 truncate h-full w-full">    里间，坐在画架前的母亲轻轻颔首，尽管她专注地在画画，但脸上神色却依旧有着几分惊讶，喃喃的呓语着，“居然画得这么认真，天生的画家么？”
+    笔触在画板上流畅地移动，唐三和他母亲开始继续重复着他们平淡的生活。
+    只是不同的是，从这一天开始，母亲给唐三房间里准备了更多的画板和颜料，让他自己去尝试绘画。
+    她没有指点唐三半句，但也是从这天开始，母亲的画卖得更多了些，家里的生活也好了些。
+    画画绝对是一个枯燥而令人疲劳的过程，但唐三却把这当成了是对自己意志的磨练。
+    已经过去十一天了，他始终在数着自己画画的数字，想要描绘出完美的画作，凭借他身体的力量是无法做到的，必须要有玄天功的辅助。
+    他全部的功力，大约够画一百幅左右，每当功力消耗殆尽，他就盘膝坐在地上恢复，内力一恢复回来就立刻继续画画。
+    这不只是对身体的锻炼，反复消耗、恢复，对他的玄天功和意志也是一种很好的磨练。
+    可惜的是，玄天功第一重的瓶颈却像是坚不可摧的壁垒，唐三的修炼不可谓不刻苦，他的天份也足够，可就是无法突破而进入第二重。
+    但他的锻炼却并没有白费，尽管玄天功没能突破，但这股内力却随着他对画板的描绘而变得更加坚韧了，恢复速度似乎也比以前要快了一点。
+    十一天过去，唐三已经画了八千余幅，画板上的颜料也变得更为丰富，已经不再是最初时那么简单了。
+    身体的锻炼和食物的增多，他的精神力变得更强了几分，仿佛有一股发自体内的力气逐渐注入到他体内，令他在不断的画画过程中，对内力的消耗正在逐渐减小。而在附加全部内力的时候，创作的速度也增大了许多。
+    当他画完一千幅的时候，那画板上的画作就已经出现了一定的变化，整整提升了一个档次，尽管色彩斑斓，但也隐约能够看到，里面的技巧似乎提高了许多。
+    百炼成画，这个词出现在唐三脑海中，这也更加坚定了他完成这一万幅画的决心。而距离这个目标已经很近了。</textarea>
+                        <button class="bg-green-600 text-gray-200 py-1 px-3 rounded  h-12 w-24 text-xl">绘图</button>
+                    </div>
+                    <div class="flex space-x-4  items-center justify-center">
+                        <textarea
+                                class="chapter bg-gray-800 text-gray-300 rounded pb-8 truncate h-full w-full">
+    唐三的坚持令他的母亲很惊讶，在她看来，哪怕自己这个儿子是天生神力，也不可能坚持超过三天。画笔的握把为了防滑是那样的粗糙，不断挥动，与手掌的摩擦，必然会给手掌带来极大的伤害。可她却发现，唐三虽然在实打实的画画，可他那双稚嫩的小手看上去却并没有任何变化。甚至连一个水泡都没有起过。
+    唐三不想失去这个母亲，也更不希望自己过往的一切被人知道，所以，他自然不会告诉她，这是因为他修炼着唐门的玄玉手。
+    想画好画，最基础的需要是眼力、手力、心力的融合。正所谓心到眼到，眼到手到。所以，在唐门内门的修炼方法中，对于眼力、手力的要求极高。
+    紫极魔瞳，借助旭日东升时紫气东来的短暂时刻进行修炼，对眼力有着极大的提高作用。
+    玄玉手，可以令手掌变得极其坚韧，并且隔绝任何毒素。
+    这两种能力，是唐门内门弟子的必修课。尽管唐三的玄玉手还远远不够火候，但保护自己手掌不被磨出水泡还是能做到的。
+    “再加把劲，今天就能完成了。”唐三卖力的挥动着手中的画笔，在这枯燥的过程中，他的心却并不平静。对于这个世界，他的了解还很初步，毕竟，这里只是个小村子而已。</textarea>
+                        <button class="bg-green-600 text-gray-200 py-1 px-3 rounded  h-12 w-24 text-xl">绘图</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="fixed bottom-4 right-4 space-y-8">
@@ -231,3 +299,19 @@
 
 
 </body>
+
+<script>
+    let chapters = document.getElementsByClassName('chapter');
+
+    for (let i = 0; i < chapters.length; i++) {
+        chapters[i].style.height = '350px';
+
+        chapters[i].addEventListener('input', (e) => {
+            chapters[i].style.height = e.target.scrollHeight + 'px';
+        });
+    }
+
+
+</script>
+
+

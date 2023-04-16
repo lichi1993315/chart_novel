@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>导航栏示例</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/chart.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/echart_flare.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/echart_les.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/summary.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/poetry.js') }}" defer></script>
 </head>
-<body class="bg-gray-800 text-gray-300">
+<body class="bg-gray-800 text-gray-300 h-auto">
+
 <div class="bg-gray-900 flex space-x-6 py-4 ">
     <label class="text-gray-300 py-1 px-3 mr-2 mr-4 text-2xl" style="font-weight: bold">Refactor</label>
 
@@ -24,9 +21,9 @@
     </div>
 </div>
 
-<div class="bg-gray-900 mr-4 mt-8 ml-4 pb-8">
+<div class="bg-gray-900 mr-4 mt-8 ml-4 pb-8 h-auto">
     <nav class="left-4 flex py-2">
-        <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">注入灵感
+        <button class="bg-gray-600 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab1">注入灵感
         </button>
         <button class="bg-gray-900 text-gray-300 py-1 px-3 mr-2 hover:bg-gray-600 mr-4 text-xl" id="tab2">作品生成
         </button>
@@ -35,199 +32,83 @@
     <hr class="border-t border-gray-600">
 
     <div class="mt-8 ml-4 mr-4">
-        <div class="content">
-            <div id="content1" class="content-item">
+        <div class="content h-full">
+            <div id="content1" class="content-item ">
                 <div class="flex space-x-4">
 
                     <div class="mb-4 w-1/2">
                         <label class="block mb-2">主题</label>
-                        <input id="storyName" class="bg-gray-800 text-gray-300 w-full rounded p-2" type="text">
+                        <input id="storyName" class="bg-gray-800 text-gray-300 w-full rounded p-2" type="text"
+                               placeholder="悲伤">
+                    </div>
+
+                    <div class="mb-4 w-1/2">
+                        <label class="block mb-2">诗人</label>
+                        <input id="storyName" class="bg-gray-800 text-gray-300 w-full rounded p-2" type="text"
+                               list="poets"
+                               placeholder="Emily Dickinson">
+                        <datalist id="poets">
+                            <option value="顾城">
+                            <option value="海子">
+                            <option value="洛夫">
+                            <option value="张枣">
+                            <option value="Emily Dickinson">
+                            <option value="Hermann Hesse">
+                            <option value="Jorge Luis Borges">
+                        </datalist>
                     </div>
 
                     <div class="mb-4 w-1/2">
                         <label class="block mb-2">体裁</label>
                         <input id="storyStyle" class="bg-gray-800 text-gray-300  w-full  rounded p-2" type="text"
-                               list="datalistOptions">
-                        <datalist id="datalistOptions">
+                               placeholder="现代诗"
+                               list="typeOfPoetry">
+                        <datalist id="typeOfPoetry">
+                            <option value="现代诗">
                             <option value="朦胧诗">
                             <option value="七言律诗">
                             <option value="五言律诗">
-                            <option value="词">
                         </datalist>
                     </div>
 
                 </div>
                 <div class="mb-12 h-24">
                     <label class="block mb-2">灵感</label>
-                    <input id="storyBackground" class="h-full bg-gray-800 text-gray-300 rounded w-full p-2" type="text">
-
-
-                    <div id="content2" class="content-item hidden">
-
-                        <button id="new_attr" class="bg-blue-600 text-gray-200 py-1 px-3 rounded mb-4">新增属性</button>
-
-                        <div class="flex space-x-8">
-
-                            <table class="w-1/2" id="attrs">
-                                <thead>
-                                <tr>
-                                    <th class="border-gray-600 border">角色</th>
-                                    <th class="border-gray-600 border">属性</th>
-                                    <th class="border-gray-600 border">详情</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- 在这里添加角色信息 -->
-                                </tbody>
-                            </table>
-
-                            <!-- 单人属性的内容 -->
-
-                            <div class="flex space-x-4 w-1/2 h-8">
-                                <label class="block ml-12"> 汇总 </label>
-                                <select id="summarySelect"
-                                        class="text-gray-600 border border-gray-400 p-1 w-1/2 rounded "></select>
-                            </div>
-
-                        </div>
-                        <style>
-                            #summary_chart {
-                                position: absolute;
-                                top: 50%;
-                                right: 2.5%;
-                                transform: translateY(-50%);
-                            }
-                        </style>
-                        <div id="summary_chart" class="block h-full" style="width: 800px; height: 500px;"></div>
-
-                    </div>
-                    <div id="content3" class="content-item hidden">
-
-
-                        <div class="flex space-x-4">
-                            <div id="echartsDemo0" class="block w-1/2" style="width: 700px; height: 400px;"></div>
-                            <div id="echartsDemo1" class="block w-1/2" style="width: 700px; height: 400px;"></div>
-                        </div>
-                    </div>
-                    <div id="content4" class="content-item hidden">
-                        <!-- 其他的内容 -->
-                        <iframe src="https://game.bugbonus.com/" frameborder="0"
-                                style="width: 1200px; height: 800px;"></iframe>
-                        <h3 class="text-lg font-semibold text-gray-600 mb-4">故事显示</h3>
-                    </div>
-                </div>
-                <div class="fixed bottom-4 right-4 space-y-8">
-                    <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="import">导入
-                    </button>
-                    <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="export">导出
-                    </button>
-                    <button class="bg-yellow-500 text-gray-900 py-4 px-8 rounded text-2xl" id="generate">小说生成
-                    </button>
+                    <input id="storyBackground" class="h-full bg-gray-800 text-gray-300 rounded w-full p-2" type="text"
+                           placeholder="野花、月亮、血、心脏、春天、雪">
                 </div>
             </div>
+            <div id="content2" class="content-item hidden">
+                <div class="flex space-x-8 ml-4 mr-4 mt-8 h-full items-center" style="height: 850px">
+                    <div class="w-full h-full pb-12 items-center">
+                        <textarea
+                                class="poetry bg-gray-800 text-gray-300 h-full text-center truncate w-full"></textarea>
+                        <button class="bg-green-600 text-gray-200 rounded h-12 w-full text-xl">绘图</button>
+                    </div>
+                    <div class="w-full h-full pb-12 items-center justify-center">
 
-            <div id="userWindow" class="hidden fixed z-10 inset-0 overflow-y-auto">
-                <div class="flex items-center justify-center min-h-screen">
-                    <div class="bg-white p-6 rounded-lg border border-gray-300">
-                        <h3 class="text-lg font-semibold text-gray-600 mb-4">角色信息</h3>
-                        <label class="block mb-2 text-gray-600">
-                            姓名：
-                            <input id="userName" type="text"
-                                   class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-                        </label>
-                        <label class="block mb-2 text-gray-600">
-                            性别：
-                            <select id="userGender" class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-                                <option value="男">男</option>
-                                <option value="女">女</option>
-                                <option value="其他">其他</option>
-                            </select>
-                        </label>
-                        <label class="block mb-4 text-gray-600">
-                            角色：
-                            <input id="userRole" type="text"
-                                   class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-                        </label>
-                        <label class="block mb-4 text-gray-600">
-                            背景：
-                            <input id="userBackground" type="text"
-                                   class="text-gray-600 border border-gray-400 p-1 rounded w-full">
-                        </label>
-                        <button id="saveUserChange"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存
-                        </button>
-                        <button id="cancelUserChange"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消
-                        </button>
+                        <textarea
+                                class="poetry bg-gray-800 text-gray-300 h-full text-center truncate w-full"></textarea>
+                        <button class="bg-green-600 text-gray-200 rounded h-12 w-full  text-xl">绘图</button>
+
+                    </div>
+                    <div class="w-full h-full pb-12 items-center justify-center">
+                        <textarea
+                                class="poetry bg-gray-800 text-gray-300 h-full text-center truncate w-full"></textarea>
+                        <button class="bg-green-600 text-gray-200 rounded h-12 w-full  text-xl">绘图</button>
+
                     </div>
                 </div>
             </div>
-
-            <div id="attrWindow" class="hidden fixed z-10 inset-0">
-                <div class="flex items-center justify-start min-h-screen p-4">
-                    <div class="bg-white p-6 w-1/2 h-auto rounded-lg border border-gray-300" style="width: 100%">
-                        <div style="width: 50%">
-                            <h3 class="text-lg font-semibold text-gray-600 mb-4">角色属性</h3>
-
-                            <div class="flex space-x-4 mb-2 ">
-                                <label class="block w-1/2 text-gray-600">
-                                    角色：
-                                    <select id="attrUserName"
-                                            class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
-                                        <!-- 动态索引所有的角色 -->
-                                    </select>
-                                </label>
-                                <label class="block w-1/2 text-gray-600">
-                                    角色2：
-                                    <select id="attrUserName2"
-                                            class="text-gray-600 border border-gray-400 p-1 w-full rounded ">
-                                        <!-- 动态索引所有的角色 -->
-                                    </select>
-                                </label>
-                            </div>
-
-
-                            <label class="block mb-2 text-gray-600">
-                                属性：
-                                <input id="attrName" type="text"
-                                       class="text-gray-600 border border-gray-400 p-1 w-full rounded"
-                                       list="attrDatalistOptions">
-
-                                <datalist id="attrDatalistOptions">
-                                    <option value="爱情">
-                                    <option value="战斗力">
-                                    <option value="魅力">
-                                </datalist>
-
-                            </label>
-                            <label class="block mb-4 text-gray-600">
-                                详情：
-                                <input id="attrInfo" type="text" value="无"
-                                       class="text-gray-600 border border-gray-400 p-1 w-full rounded">
-                            </label>
-                            <button id="saveAttrChange"
-                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">保存
-                            </button>
-                            <button id="cancelAttrChange"
-                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">取消
-                            </button>
-                        </div>
-                    </div>
-
-                    <style>
-                        #single_chart {
-                            position: absolute;
-                            top: 50%;
-                            right: 5%;
-                            transform: translateY(-50%);
-                        }
-                    </style>
-                    <div id="single_chart" class="block h-full" style="width: 700px; height: 400px;"></div>
-
-                </div>
-            </div>
-
         </div>
-
-
+        <div class="fixed bottom-4 right-4 space-y-8">
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="import">导入
+            </button>
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 mr-4 rounded text-2xl" id="export">导出
+            </button>
+            <button class="bg-yellow-500 text-gray-900 py-4 px-8 rounded text-2xl" id="generate">生成
+            </button>
+        </div>
+    </div>
+</div>
 </body>
