@@ -1,6 +1,7 @@
 from event import *
 import json
 import requests
+
 category = "爱情"
 min = -3
 max = 3
@@ -20,5 +21,3 @@ print(json_str)
 
 response = requests.post(url, data=json_str, headers=headers)
 print(response.json())
-
-

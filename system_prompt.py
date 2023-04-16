@@ -1,3 +1,4 @@
+# coding:utf-8
 import json
 from event import get_event
 
@@ -43,7 +44,6 @@ You are a scale judge and novelist, and you can write a 10-chapter story based o
 
 
 def get_chapter_prompt(info):
-
     promts = []
 
     for i in range(10):

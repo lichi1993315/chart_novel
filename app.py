@@ -16,15 +16,18 @@ def home():
     # Render the template with the options for each chart
     return render_template("index.html")
 
+
 @app.route("/poetry")
 def poetry():
     # Render the template with the options for each chart
     return render_template("poetry.html")
 
+
 @app.route("/image")
 def image():
     # Render the template with the options for each chart
     return render_template("image.html")
+
 
 @app.route("/on_dragging", methods=["POST"])
 def on_dragging():
@@ -51,6 +54,7 @@ def on_dragging():
     else:
         return jsonify({"status": "error"})
 
+
 @app.route("/update_json", methods=["POST"])
 def update_json():
     result = request.json.get("result", None)
@@ -63,6 +67,7 @@ def update_json():
         return jsonify({"status": "success"})
     else:
         return jsonify({"status": "error"})
+
 
 def get_url(url):
     response = requests.get(url)
@@ -91,7 +96,6 @@ def get_les():
 def get_unity():
     url = "https://game.bugbonus.com/assets/unity.json"
     return get_url(url)
-
 
 
 if __name__ == "__main__":

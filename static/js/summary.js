@@ -24,21 +24,28 @@ chart.setOption(option);
 
 const select = document.getElementById('summarySelect');
 
-select.addEventListener('change', function() {
-  console.log('选项已经变化：' + select.value);
+select.addEventListener('change', function () {
+    console.log('选项已经变化：' + select.value)
 
-  chart.clear()
-  chart.setOption(option, true)
 
-  let info;
-  let attr_name;
+    if (select.value) {
+        update_user_summary(select.value)
+    }
+});
 
-  if (select.value) {
+function update_user_summary(user_name) {
 
-    info = USER_INFO[select.value]
+    chart.clear()
+    chart.setOption(option, true)
+
+    let info;
+    let attr_name;
+
+
+    info = USER_INFO[user_name]
 
     if (!("attr" in info)) {
-      return
+        return
     }
 
     let attr_names = Object.keys(info['attr']);
@@ -47,23 +54,22 @@ select.addEventListener('change', function() {
 
     // 添加选项
     for (let i = 0; i < attr_names.length; i++) {
-      attr_name = attr_names[i]
+        attr_name = attr_names[i]
 
-      seriesData.push(
-          {
-            name: attr_name,
-            type: 'line',
-            smooth: true,
-            data: info['attr'][attr_name]['data'],
-            lineStyle: {
-              color: colors[(i + 4) % 4],
+        seriesData.push(
+            {
+                name: attr_name,
+                type: 'line',
+                smooth: true,
+                data: info['attr'][attr_name]['data'],
+                lineStyle: {
+                    color: colors[(i + 4) % 4],
+                }
             }
-          }
-      )
+        )
     }
 
-     chart.setOption({
+    chart.setOption({
         series: seriesData
-      });
-  }
-});
+    });
+}
